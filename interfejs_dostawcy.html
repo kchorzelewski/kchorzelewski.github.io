@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dostawca Zamówień</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .order-card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6" id="currentOrder">
+                <div class="card order-card">
+                    <div class="card-header">
+                        <h5>Aktualne Zamówienie</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6>Numer Zamówienia: #12345</h6>
+                        <p>Data i godzina zamówienia: 5.06.2024 16:30</p>
+                        <p>Klient: John Doe</p>
+                        <p>Adres Klienta: ul. Dworcowa 1, mieszkanie 5</p>
+                        <p>Adres Restauracji: Pstrowskiego 10</p>
+                        <p>Dania:</p>
+                        <ul>
+                            <li>Zinger</li>
+                            <li>Frytki</li>
+                        </ul>
+                        <button class="btn btn-success confirm-delivery">Potwierdź Dostarczenie</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" id="nextOrder">
+                <div class="card order-card">
+                    <div class="card-header">
+                        <h5>Następne Zamówienie</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6>Numer Zamówienia: #12346</h6>
+                        <p>Data i godzina zamówienia: 5.06.2024 18:01</p>
+                        <p>Klient: Jane Smith</p>
+                        <p>Adres Klienta: ul. Barczewskiego 1, mieszkanie 3</p>
+                        <p>Adres Restauracji: Plac Franklina Roosevelta 1</p>
+                        <p>Dania:</p>
+                        <ul>
+                            <li>Big mac</li>
+                            <li>Frytki</li>
+                            <li>Coca-cola</li>
+                        </ul>
+                        <button class="btn btn-primary">Potwierdź odbiór</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".confirm-delivery").click(function() {
+                // Ukrycie aktualnego zamówienia
+                $("#currentOrder").hide();
+                // Przesunięcie do następnego zamówienia
+                $("#nextOrder").removeClass("col-md-6").addClass("col-md-12");
+            });
+        });
+    </script>
+</body>
+</html>

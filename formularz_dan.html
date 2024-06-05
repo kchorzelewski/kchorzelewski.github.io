@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aktualizacja Menu Restauracji</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Aktualne Menu</h2>
+                <form id="updateMenuForm">
+                    <ul class="list-group" id="menuList">
+                        <li class="list-group-item">
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control menu-item" value="Pizza Margherita">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control menu-price" value="10.99">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control menu-description" value="Klasyczna włoska pizza z pomidorami i serem.">
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-danger remove-item">Usuń</button>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Kolejne elementy menu... -->
+                    </ul>
+                    <button type="submit" class="btn btn-primary mt-3">Aktualizuj Menu</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h2>Edytuj Menu</h2>
+                <form id="addMenuItemForm">
+                    <div class="form-group">
+                        <label for="menuItem">Nazwa dania</label>
+                        <input type="text" class="form-control" id="menuItem" placeholder="Wpisz nazwę dania">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Cena</label>
+                        <input type="text" class="form-control" id="price" placeholder="Wpisz cenę">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Opis</label>
+                        <input type="text" class="form-control" id="description" placeholder="Wpisz opis dania">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Dodaj Danie</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Obsługa formularza aktualizacji menu
+            $("#updateMenuForm").submit(function(e) {
+                e.preventDefault();
+                // Pobranie danych z formularza i aktualizacja menu
+                $("#menuList .list-group-item").each(function() {
+                    var menuItem = $(this).find(".menu-item").val();
+                    var menuPrice = $(this).find(".menu-price").val();
+                    var menuDescription = $(this).find(".menu-description").val();
+                    $(this).html('<div class="form-row"><div class="col"><input type="text" class="form-control menu-item" value="' + menuItem + '"></div><div class="col"><input type="text" class="form-control menu-price" value="' + menuPrice + '"></div><div class="col"><input type="text" class="form-control menu-description" value="' + menuDescription + '"></div><div class="col"><button type="button" class="btn btn-danger remove-item">Usuń</button></div></div>');
+                });
+            });
+
+            // Obsługa dodawania nowego dania
+            $("#addMenuItemForm").submit(function(e) {
+                e.preventDefault();
+                var menuItem = $("#menuItem").val();
+                var menuPrice = $("#price").val();
+                var menuDescription = $("#description").val();
+                var newItem = '<li class="list-group-item"><div class="form-row"><div class="col"><input type="text" class="form-control menu-item" value="' + menuItem + '"></div><div class="col"><input type="text" class="form-control menu-price" value="' + menuPrice + '"></div><div class="col"><input type="text" class="form-control menu-description" value="' + menuDescription + '"></div><div class="col"><button type="button" class="btn btn-danger remove-item">Usuń</button></div></div></li>';
+                $("#menuList").append(newItem);
+                $("#menuItem").val('');
+                $("#price").val('');
+                $("#description").val('');
+            });
+
+            // Obsługa usuwania elementów menu
+            $(document).on('click', '.remove-item', function() {
+                $(this).closest('.list-group-item').remove();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wybór Metody Płatności</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>Wybór Metody Płatności</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="paymentForm">
+                            <div class="form-group">
+                                <label for="paymentMethod">Metoda Płatności</label>
+                                <select class="form-control" id="paymentMethod" required>
+                                    <option value="" selected disabled>Wybierz metodę płatności</option>
+                                    <option value="transfer">Przelew</option>
+                                    <option value="blik">BLIK</option>
+                                </select>
+                            </div>
+
+                            <div id="cardDetails" class="d-none">
+                                <div class="form-group">
+                                    <label for="cardName">Nazwa na karcie</label>
+                                    <input type="text" class="form-control" id="cardName" placeholder="Wpisz nazwę na karcie">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cardNumber">Numer karty kredytowej</label>
+                                    <input type="text" class="form-control" id="cardNumber" placeholder="Wpisz numer karty kredytowej">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="expMonth">Miesiąc ważności</label>
+                                        <input type="text" class="form-control" id="expMonth" placeholder="MM">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="expYear">Rok ważności</label>
+                                        <input type="text" class="form-control" id="expYear" placeholder="RRRR">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="cvv">CVV</label>
+                                        <input type="text" class="form-control" id="cvv" placeholder="CVV">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="blikDetails" class="d-none">
+                                <div class="form-group">
+                                    <label for="blikCode">Kod BLIK</label>
+                                    <input type="text" class="form-control" id="blikCode" placeholder="Wpisz kod BLIK">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block">Dokonaj płatność</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#paymentMethod').change(function() {
+                var selectedMethod = $(this).val();
+                if (selectedMethod === 'transfer') {
+                    $('#cardDetails').removeClass('d-none');
+                    $('#blikDetails').addClass('d-none');
+                    $('#cardName').attr('required', true);
+                    $('#cardNumber').attr('required', true);
+                    $('#expMonth').attr('required', true);
+                    $('#expYear').attr('required', true);
+                    $('#cvv').attr('required', true);
+                    $('#blikCode').attr('required', false);
+                } else if (selectedMethod === 'blik') {
+                    $('#blikDetails').removeClass('d-none');
+                    $('#cardDetails').addClass('d-none');
+                    $('#cardName').attr('required', false);
+                    $('#cardNumber').attr('required', false);
+                    $('#expMonth').attr('required', false);
+                    $('#expYear').attr('required', false);
+                    $('#cvv').attr('required', false);
+                    $('#blikCode').attr('required', true);
+                } else {
+                    $('#cardDetails').addClass('d-none');
+                    $('#blikDetails').addClass('d-none');
+                    $('#cardName').attr('required', false);
+                    $('#cardNumber').attr('required', false);
+                    $('#expMonth').attr('required', false);
+                    $('#expYear').attr('required', false);
+                    $('#cvv').attr('required', false);
+                    $('#blikCode').attr('required', false);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

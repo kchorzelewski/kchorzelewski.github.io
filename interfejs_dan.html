@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wybór Restauracji i Menu</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Wybierz Restaurację</h1>
+        <div class="form-group">
+            <label for="restaurantSelect">Restauracja</label>
+            <select class="form-control" id="restaurantSelect">
+                <option value="" selected disabled>Wybierz restaurację</option>
+                <option value="1">Restauracja A</option>
+                <option value="2">Restauracja B</option>
+                <option value="3">Restauracja C</option>
+            </select>
+        </div>
+
+        <div id="menuSection" class="mt-5" style="display: none;">
+            <h2>Menu</h2>
+            <div class="row" id="menuItems">
+                <!-- Dania będą dynamicznie dodawane tutaj -->
+            </div>
+        </div>
+
+        <div id="cartSection" class="mt-5" style="display: none;">
+            <h2>Pozycje</h2>
+            <ul id="cartItems" class="list-group mb-3">
+                <!-- Koszyk będzie dynamicznie dodawany tutaj -->
+            </ul>
+            <button class="btn btn-success" id="checkoutButton">Przejdź do formularza zamowienia</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const menuData = {
+            1: [
+                { title: "Danie A1", description: "Opis dania A1", price: "2.99" },
+                { title: "Danie A2", description: "Opis dania A2", price: "2.99" },
+                { title: "Danie A3", description: "Opis dania A3", price: "2.99" }
+            ],
+            2: [
+                { title: "Danie B1", description: "Opis dania B1", price: "2.99" },
+                { title: "Danie B2", description: "Opis dania B2", price: "2.99" },
+                { title: "Danie B3", description: "Opis dania B3", price: "2.99" }
+            ],
+            3: [
+                { title: "Danie C1", description: "Opis dania C1", price: "2.99" },
+                { title: "Danie C2", description: "Opis dania C2", price: "2.99" },
+                { title: "Danie C3", description: "Opis dania C3", price: "2.99" }
+            ]
+        };
+
+        let cart = [];
+        const deliveryFee = 10;
+
+        document.getElementById('restaurantSelect').addEventListener('change', function() {
+            const selectedRestaurant = this.value;
+            const menuItems = menuData[selectedRestaurant];
+            const menuSection = document.getElementById('menuSection');
+            const menuItemsContainer = document.getElementById('menuItems');
+            
+            menuItemsContainer.innerHTML = '';
+            menuItems.forEach(item => {
+                const menuItem = `
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">${item.title}</h5>
+                                <p class="card-text">${item.price} zł</p>
+                                <p class="card-text">${item.description}</p>
+                                <button class="btn btn-primary add-to-cart" data-title="${item.title}" data-price="${item.price}">Dodaj do koszyka</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                menuItemsContainer.innerHTML += menuItem;
+            });
+            menuSection.style.display = 'block';
+
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const title = this.getAttribute('data-title');
+                    const price = parseFloat(this.getAttribute('data-price'));
+                    addToCart(title, price);
+                });
+            });
+        });
+
+        function addToCart(title, price) {
+            cart.push({ title, price });
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartSection = document.getElementById('cartSection');
+            const cartItemsContainer = document.getElementById('cartItems');
+            
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            cart.forEach(item => {
+                total += item.price;
+                const cartItem = `
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        ${item.title}
+                        <span>${item.price} zł</span>
+                    </li>
+                `;
+                cartItemsContainer.innerHTML += cartItem;
+            });
+
+            cartSection.style.display = 'block';
+        }
+
+        document.getElementById('checkoutButton').addEventListener('click', function() {
+            window.location.href = 'http://127.0.0.1:5500/formularz_zamowienia.html';
+        });
+    </script>
+</body>
+</html>
