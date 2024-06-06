@@ -39,13 +39,13 @@
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             const login = document.getElementById('login').value;
             if (login === "klient"){
-                window.location.href = 'http://127.0.0.1:5500/przegladaj_menu.html';
+                window.location.href = 'http://127.0.0.1:5500/interfejs_dan.html';
             }
             else if (login === "dostawca"){
-                window.location.href = 'http://127.0.0.1:5500/realizuj_zamowienie.html';
+                window.location.href = 'http://127.0.0.1:5500/interfejs_dostawcy.html';
             }
             else if (login === "restauracja"){
-                window.location.href = 'http://127.0.0.1:5500/aktualizuj_menu.html';
+                window.location.href = 'http://127.0.0.1:5500/formularz_dan.html';
             }
             event.preventDefault(); // Zapobiega domyślnej akcji przesyłania formularza
         });
